@@ -1,7 +1,8 @@
 const express = require('express');
 const {userAuth} = require("../middlewares/auth");
 const ConnectionRequest = require("../models/ConnectionRequest");
-const User = require("../models/User")
+const User = require("../models/User");
+const sendEmail = require("../utils/sendEmail_temp")
 
 
 const requestRouter = express.Router();
@@ -40,10 +41,14 @@ requestRouter.post("/request/send/:status/:userId", userAuth, async (req, res, n
             return res.status(400).send({message: "Invalid request!"})
         }
         const  data = await requestData.save();
+        const resEmail = await sendEmail.run();
+        console.log(resEmail);
+        
         res.send(data);
 
     }catch(err){
         res.status(400).send("Error! "+err.message);
+        console.error(err.message)
     }
 })
 

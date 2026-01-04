@@ -11,7 +11,9 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
-const cors = require('cors')
+const cors = require('cors');
+require("dotenv").config();
+
 
 
 const app = express();
@@ -34,7 +36,7 @@ app.use("/", userRouter)
 connectDB()
 .then(()=>{
     console.log('Database connected successfully');
-    app.listen(3000, ()=>{
+    app.listen(process.env.PORT, ()=>{
     console.log('server is created successfully');
     
 })
