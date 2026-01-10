@@ -41,7 +41,7 @@ requestRouter.post("/request/send/:status/:userId", userAuth, async (req, res, n
             return res.status(400).send({message: "Invalid request!"})
         }
         const  data = await requestData.save();
-        const resEmail = await sendEmail.run();
+        const resEmail = await sendEmail.run("You have got the friend request", "Please login to devTinder!");
         console.log(resEmail);
         
         res.send(data);
